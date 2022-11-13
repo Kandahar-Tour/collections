@@ -2,8 +2,9 @@
 
 
 color = ['red', 'blue', 'green']
-print(color)
+print(id(color))
 
 color[0] = 'pink'
 color[-1] = 'orange'
-print(color)
+
+print(id(color))
