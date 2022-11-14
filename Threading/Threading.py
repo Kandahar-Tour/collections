@@ -1,32 +1,28 @@
-import threading
-import time
-exitFlag = 0
+from threading import*
+from time import sleep
+class Test:
+    def print_hello(self):
+        for i in range(5):
+            print('hello')
+            sleep(1)
 
-class myThread (threading.Thread):
-   def __init__(self, threadID, name, counter):
-      threading.Thread.__init__(self)
-      self.threadID = threadID
-      self.name = name
-      self.counter = counter
-   def run(self):
-      print ("Starting " + self.name)
-      print_time(self.name, 5, self.counter)
-      print ("Exiting " + self.name)
+class Test1:
+    def print_hi(self):
+        for i in range(5):
+            print('Hi')
+            sleep(1)
+obj1=Test()
+obj2=Test1()
+t1=Thread(target=obj1.print_hello,args=())
+t2=Thread(target=obj2.print_hi,args=())
 
-def print_time(threadName, counter, delay):
-   while counter:
-      if exitFlag:
-         threadName.exit()
-      time.sleep(delay)
-      print ("%s: %s" % (threadName, time.ctime(time.time())))
-      counter -= 1
+t1.start()
+sleep(0.2)
+t2.start()
 
-# Create new threads
-thread1 = myThread(1, "Thread-1", 1)
-thread2 = myThread(2, "Thread-2", 2)
 
-# Start new Threads
-thread1.start()
-thread2.start()
-
-print ("Exiting Main Thread")
+t1.join()
+t2.join()
+print('bye')
+# there we have three threads 1 main thread , thread 1 and thread 2 there the main is printing between two other threads 
+#if we want to first do other threads and in the final we do the main thread we use join
